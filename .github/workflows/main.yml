@@ -6,7 +6,7 @@ on:
     branches: [ "main" ]
     
 jobs:
-  build:
+  run-automation-test:
 
     runs-on: windows-latest
 
@@ -22,3 +22,17 @@ jobs:
 
     - name: setup gradle
       uses: ./gradlew build
+      
+    - name: Archieve Test Result
+      uses: actions/upload-artifact@v3.1.2
+      if: always()
+      with:
+        name: Cucumber Report
+        path: reports
+    - name: Deploy report to github pages
+      if: always()
+      uses: peaceiris/actions-gh-pages@v3.9.3
+      with:
+        PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PUBLISH_BRANCH: test-reports
+        PUBLISH_DIR: reports
