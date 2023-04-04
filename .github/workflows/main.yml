@@ -21,17 +21,21 @@ jobs:
       uses: browser-actions/setup-chrome@v1.2.0
 
     - name: setup gradle
-      uses: ./gradlew build
+      run: chmod +x gradlew
+
+    - name: Execute Test
+      run: ./gradlew Cucumber
       
-    - name: Archieve Test Result
-      uses: actions/upload-artifact@v3.1.2
+    - name: Archive Test Result
+      uses: actions/upload-artifact@v3.1.0
       if: always()
       with:
         name: Cucumber Report
         path: reports
+        
     - name: Deploy report to github pages
       if: always()
-      uses: peaceiris/actions-gh-pages@v3.9.3
+      uses: peaceiris/actions-gh-pages@v3.7.3
       with:
         PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PUBLISH_DIR: reports
