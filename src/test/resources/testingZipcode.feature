@@ -26,6 +26,6 @@ Feature: Testing Zip Code feature
     Given user is on checkout your information page
     And user input firstName with "sugus"
     And user input lastName with "dori"
-    And user input zipcode with "515252624"
+    And user input zipcode with "42587"
     And user click on continue
-    Then user get an error message "Invalid Zipcode"
+    Then user will be redirect to checkout overview page
